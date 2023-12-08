@@ -28,8 +28,9 @@ CPColorMap >> initializePresenters [
 	can := self canvas.
 	can color: Color transparent.
 	map := RSBox new
+		       cornerRadius: 5;
 		       extent: 240 @ 130;
-		       paint: ((LinearGradientPaint fromArray: { 
+		       paint: ((LinearGradientPaint fromArray: {
 						         (0 -> Color red).
 						         (1 -> Color white) })
 				        start: 120 @ 0;
@@ -40,13 +41,14 @@ CPColorMap >> initializePresenters [
 		               border: (RSBorder new
 				                width: 2;
 				                color: Color white).
-	paint := LinearGradientPaint fromArray: { 
+	paint := LinearGradientPaint fromArray: {
 			         (0 -> Color black).
 			         (1 -> Color transparent) }.
 	paint
 		start: 0 @ 65;
 		stop: 0 @ -65.
 	blackGradient := RSBox new
+		                 cornerRadius: 5;
 		                 extent: 240 @ 130;
 		                 paint: paint.
 	can
@@ -61,10 +63,10 @@ CPColorMap >> initializePresenters [
 CPColorMap >> positionFromColor: aColor [
 
 	| x y |
-	x := (240 * aColor saturation) floor.
+	x := (self width * aColor saturation) floor.
 	y := 130 - (130 * aColor brightness) floor.
 
-	^ x - 120 @ (y - 65)
+	^ x - self width / 2 @ (y - 65)
 ]
 
 { #category : #initialization }
@@ -93,13 +95,20 @@ CPColorMap >> setHue: hue [
 { #category : #initialization }
 CPColorMap >> svChanged: evt [
 
-	(evt position x between: -120 and: 120) ifTrue: [ 
+	(evt position x between: -120 and: 120) ifTrue: [
 		circleColor translateTo: evt position x @ circleColor position y ].
-	(evt position y between: -65 and: 65) ifTrue: [ 
+	(evt position y between: -65 and: 65) ifTrue: [
 		circleColor translateTo: circleColor position x @ evt position y ].
-	saturation := (circleColor position x +120) / 240. 
-	brightness  := 130 - (circleColor position y + 65) / 130.
-	circleColor color: (Color h: self owner hue s: saturation v: brightness).
+	saturation := circleColor position x + 120 / 240.
+	brightness := 130 - (circleColor position y + 65) / 130.
+	circleColor color:
+		(Color h: self owner hue s: saturation v: brightness).
 	self owner updateSaturation: saturation brightness: brightness.
 	self canvas signalUpdate
+]
+
+{ #category : #initialization }
+CPColorMap >> width [
+	
+	^ 240
 ]

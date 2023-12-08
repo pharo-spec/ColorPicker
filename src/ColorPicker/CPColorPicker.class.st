@@ -22,7 +22,8 @@ Class {
 		'brightness',
 		'saturation',
 		'paletteChooser',
-		'actionBlock'
+		'actionBlock',
+		'presenters'
 	],
 	#category : #ColorPicker
 }
@@ -89,7 +90,7 @@ CPColorPicker >> initialize [
 CPColorPicker >> initializeLayout [
 
 	self layout: (SpBoxLayout newTopToBottom
-			 add: colorMap height: 130;
+			 add: colorMap height: 150;
 			 add: colorSlider expand: false;
 			 add: colorCodePresenter expand: false;
 			 add: paletteChooser;
@@ -104,6 +105,11 @@ CPColorPicker >> initializePresenters [
 	colorCodePresenter := self instantiate: CPColorCodePresenter.
 	colorMap := self instantiate: CPColorMap.
 	paletteChooser := self instantiate: CPSmallColorPalette.
+	presenters := {
+		              colorSlider.
+		              colorCodePresenter.
+		              colorMap.
+		              paletteChooser }.
 	self initializeLayout
 ]
 
@@ -127,6 +133,13 @@ CPColorPicker >> setColor: aColor [
 	colorSlider setColor: aColor.
 	colorCodePresenter setColor: aColor.
 	actionBlock value: aColor
+]
+
+{ #category : #initialization }
+CPColorPicker >> updateColor: aColor from: aPresenter [
+
+	presenters do: [ :p |
+		p = aPresenter ifFalse: [ aPresenter setColor: aColor ] ]
 ]
 
 { #category : #update }

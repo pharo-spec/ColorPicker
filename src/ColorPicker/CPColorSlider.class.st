@@ -33,6 +33,7 @@ CPColorSlider >> hueChanged: evt [
 	"When hue change, update circle pointer position. And notify change."
 
 	| c |
+	"Wierd computation due to origin center in Roassal."
 	(evt position x
 		 between: -1 * rainbowSlider width / 2
 		 and: rainbowSlider width / 2) ifFalse: [ "If not in bounds, do nothing"
@@ -43,7 +44,8 @@ CPColorSlider >> hueChanged: evt [
 	circleHue color: c.
 	circleHue translateTo: evt position x @ 0.
 
-	self owner updateHue: hue.
+	self owner updateColor: hue from: self.
+	
 	circleHue signalUpdate
 ]
 
@@ -69,6 +71,11 @@ CPColorSlider >> initializeCanvas [
 
 	paint := self gradientPaintHues.
 	rainbowSlider := RSBox new
+		                 cornerRadius: 10;
+		                 border: (RSBorder new
+				                  width: 1;
+				                  color: Color black translucent;
+				                  yourself);
 		                 extent: self sliderWidth @ self sliderHeight;
 		                 paint: paint.
 	circleHue := RSCircle new
@@ -89,7 +96,6 @@ CPColorSlider >> initializeCanvas [
 { #category : #initialization }
 CPColorSlider >> initializePresenters [
 
-	| paint can slider |
 	self initializeCanvas.
 	
 ]
