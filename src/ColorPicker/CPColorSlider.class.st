@@ -44,8 +44,8 @@ CPColorSlider >> hueChanged: evt [
 	circleHue color: c.
 	circleHue translateTo: evt position x @ 0.
 
-	self owner updateColor: hue from: self.
-	
+	self owner updateHue: hue.
+
 	circleHue signalUpdate
 ]
 
@@ -79,17 +79,17 @@ CPColorSlider >> initializeCanvas [
 		                 extent: self sliderWidth @ self sliderHeight;
 		                 paint: paint.
 	circleHue := RSCircle new
-		             radius: 10;
+		             radius: 8;
 		             border: (RSBorder new
 				              width: 2;
 				              color: Color gray).
 	slider
 		when: RSMouseDragging send: #hueChanged: to: self;
 		when: RSMouseLeftClick send: #hueChanged: to: self.
-	slider
-		add: rainbowSlider;
+	slider add: rainbowSlider.
+	can
+		add: slider;
 		add: circleHue.
-	can add: slider.
 	slider adjustToChildren
 ]
 
@@ -110,7 +110,7 @@ CPColorSlider >> positionFromHue: aHue [
 { #category : #initialization }
 CPColorSlider >> setColor: aColor [
 
-	self updateCirclePointerWith: aColor
+	self updateCirclePointerWith: aColor hue
 ]
 
 { #category : #initialization }
@@ -126,11 +126,10 @@ CPColorSlider >> sliderWidth [
 ]
 
 { #category : #initialization }
-CPColorSlider >> updateCirclePointerWith: aColor [
+CPColorSlider >> updateCirclePointerWith: h [
 	"Updates color and position of circle pointer with a given color."
-
-	hue := aColor hue.
-	circleHue translateTo: (self positionFromHue: hue).
-	circleHue color: (Color h: hue s: 1 v: 1).
+	hue := h.
+	circleHue translateTo: (self positionFromHue: h).
+	circleHue color: (Color h: h s: 1 v: 1).
 	circleHue signalUpdate
 ]

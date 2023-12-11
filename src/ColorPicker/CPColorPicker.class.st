@@ -14,6 +14,7 @@ Class {
 	#name : #CPColorPicker,
 	#superclass : #SpPresenter,
 	#instVars : [
+		'alphaSlider',
 		'colorSlider',
 		'colorMap',
 		'colorCodePresenter',
@@ -89,12 +90,20 @@ CPColorPicker >> initialize [
 { #category : #initialization }
 CPColorPicker >> initializeLayout [
 
+	| sp sp2 |
+	sp := self newRoassal.
+	sp2 := self newPresenter.
+	sp2 layout: SpBoxLayout newTopToBottom.
+	sp canvas color: Color black translucent.
 	self layout: (SpBoxLayout newTopToBottom
 			 add: colorMap height: 150;
-			 add: colorSlider expand: false;
+			 add: colorSlider height: 25;
+			 add: alphaSlider height: 25;
 			 add: colorCodePresenter expand: false;
+			 add: sp2 height: 10;
+			 add: sp height: 1;
 			 add: paletteChooser;
-			 spacing: 2;
+			 spacing: 1;
 			 yourself)
 ]
 
@@ -102,6 +111,7 @@ CPColorPicker >> initializeLayout [
 CPColorPicker >> initializePresenters [
 
 	colorSlider := self instantiate: CPColorSlider.
+	alphaSlider := self instantiate: CPAlphaSlider.
 	colorCodePresenter := self instantiate: CPColorCodePresenter.
 	colorMap := self instantiate: CPColorMap.
 	paletteChooser := self instantiate: CPSmallColorPalette.
@@ -109,7 +119,8 @@ CPColorPicker >> initializePresenters [
 		              colorSlider.
 		              colorCodePresenter.
 		              colorMap.
-		              paletteChooser }.
+		              paletteChooser.
+		              alphaSlider }.
 	self initializeLayout
 ]
 
@@ -118,7 +129,7 @@ CPColorPicker >> initializeWindow: aWindowPresenter [
 
 	aWindowPresenter
 		title: 'Color picker';
-		initialExtent: 260@400;
+		initialExtent: 270@400;
 		windowIcon: self windowIcon
 ]
 
@@ -132,14 +143,8 @@ CPColorPicker >> setColor: aColor [
 	colorMap setColor: aColor.
 	colorSlider setColor: aColor.
 	colorCodePresenter setColor: aColor.
+	alphaSlider setColor: aColor.
 	actionBlock value: aColor
-]
-
-{ #category : #initialization }
-CPColorPicker >> updateColor: aColor from: aPresenter [
-
-	presenters do: [ :p |
-		p = aPresenter ifFalse: [ aPresenter setColor: aColor ] ]
 ]
 
 { #category : #update }
@@ -151,6 +156,7 @@ CPColorPicker >> updateHue: aHue [
 	c := Color h: hue s: saturation v: brightness.
 	color := c.
 	colorCodePresenter setColor: c.
+	alphaSlider setColor: c.
 	actionBlock value: c
 ]
 
@@ -163,6 +169,7 @@ CPColorPicker >> updateSaturation: s brightness: v [
 	c := Color h: hue s: saturation v: brightness.
 	color := c.
 	colorCodePresenter setColor: c.
+	alphaSlider setColor: c.
 	actionBlock value: c
 ]
 

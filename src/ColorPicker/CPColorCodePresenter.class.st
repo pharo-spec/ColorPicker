@@ -9,7 +9,8 @@ Class {
 		'gCodeInput',
 		'bCodeInput',
 		'hexaCode',
-		'colorBox'
+		'colorBox',
+		'alphaColorBox'
 	],
 	#category : #ColorPicker
 }
@@ -18,6 +19,36 @@ Class {
 CPColorCodePresenter class >> defaultLayout [
 
 	^ SpBoxLayout new
+]
+
+{ #category : #initialization }
+CPColorCodePresenter >> chessPaintFor: aPoint [
+
+	| canvas lines c h w |
+	canvas := RSCanvas new extent: aPoint.
+	lines := RSGroup new.
+	h := aPoint y.
+	w := aPoint x.
+	1 to: (h / 7) asFloat ceiling do: [ :i |
+		| line |
+		line := RSGroup new.
+		1 to: (w / 7) asFloat ceiling do: [ :j |
+			line add: (RSBox new
+					 extent: 7 asPoint;
+					 color: ((j + i) even
+							  ifTrue: [ Color gray ]
+							  ifFalse: [ Color white ])) ].
+		RSHorizontalLineLayout new
+			gapSize: 0;
+			on: line.
+		lines add: line ].
+	RSVerticalLineLayout new
+		gapSize: 0;
+		on: lines.
+	c := lines flatten asShape.
+	c position: 0 asPoint.
+	canvas add: c.
+	^ canvas asForm
 ]
 
 { #category : #initialization }
@@ -57,6 +88,20 @@ CPColorCodePresenter >> initializePresenters [
 	bCodeInput := self newTextInput.
 	hexaCode := self newTextInput.
 	colorBox := self instantiate: SpRoassalPresenter.
+	colorBox canvas originTopLeft.
+	alphaColorBox := RSBox new.
+
+	colorBox canvas add: alphaColorBox.
+
+	colorBox canvas
+		when: RSExtentChangedEvent
+		do: [ :evt |
+			alphaColorBox
+				translateTopLeftTo: 0 asPoint;
+				extent: evt canvas extent x / 2 @ evt canvas extent y;
+				paint: (self chessPaintFor: alphaColorBox extent) ]
+		for: self.
+	
 	colorBox canvas add:
 		((RSBitmap newFrom: (Smalltalk ui icons iconNamed: #haloScale))
 			 size: 25;

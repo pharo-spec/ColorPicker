@@ -71,7 +71,7 @@ CPColorMap >> positionFromColor: aColor [
 
 { #category : #initialization }
 CPColorMap >> setColor: aColor [
-
+	
 	saturation := aColor saturation.
 	brightness := aColor brightness.
 	circleColor translateTo: (self positionFromColor: aColor).
