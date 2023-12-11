@@ -53,6 +53,15 @@ CPColorPicker class >> openExample [
 		  yourself
 ]
 
+{ #category : 'specs' }
+CPColorPicker class >> openExemple [
+
+	<script>
+	^ self new
+		  open;
+		  yourself
+]
+
 { #category : 'accessing' }
 CPColorPicker >> color [
 
