@@ -10,10 +10,7 @@ Class {
 		'bCodeInput',
 		'hexaCode',
 		'colorBox',
-		'alphaColorBox',
-		'rLabel',
-		'gLabel',
-		'bLabel'
+		'alphaColorBox'
 	],
 	#category : 'ColorPicker',
 	#package : 'ColorPicker'
