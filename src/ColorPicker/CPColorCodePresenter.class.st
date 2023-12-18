@@ -10,17 +10,14 @@ Class {
 		'bCodeInput',
 		'hexaCode',
 		'colorBox',
-		'alphaColorBox'
+		'alphaColorBox',
+		'rLabel',
+		'gLabel',
+		'bLabel'
 	],
 	#category : 'ColorPicker',
 	#package : 'ColorPicker'
 }
-
-{ #category : 'specs' }
-CPColorCodePresenter class >> defaultLayout [
-
-	^ SpBoxLayout new
-]
 
 { #category : 'initialization' }
 CPColorCodePresenter >> chessPaintFor: aPoint [
@@ -58,36 +55,74 @@ CPColorCodePresenter >> connectPresenters [
 	"rCodeInput whenTextChangedDo: [  self updateColorCode ] "
 ]
 
-{ #category : 'initialization' }
-CPColorCodePresenter >> initializeLayout [
+{ #category : 'layout' }
+CPColorCodePresenter >> defaultLayout [
 
-	self layout: (SpBoxLayout newLeftToRight
+	^ SpBoxLayout newLeftToRight
+			beHomogeneous;
 			 add: (SpBoxLayout newTopToBottom
 					  spacing: 1;
 					  add: (SpBoxLayout newLeftToRight
-							   add: rCodeInput;
-							   add: gCodeInput;
-							   add: bCodeInput;
+							   add: (SpBoxLayout
+									newTopToBottom
+										add: (SpLabelPresenter new label: 'R');
+										add: rCodeInput;
+										yourself);
+							   add: (SpBoxLayout
+									newTopToBottom
+										add: (SpLabelPresenter new label: 'G');
+										add: gCodeInput;
+										yourself);
+							   add: (SpBoxLayout
+									newTopToBottom
+										add: (SpLabelPresenter new label: 'B');
+										add: bCodeInput;
+										yourself);
 							   spacing: 1;
-							   yourself)
-					  expand: false;
+							   yourself);
 					  add: (SpBoxLayout newLeftToRight
-							   add: hexaCode;
-							   yourself)
-					  expand: false;
+							   add: (SpBoxLayout
+									newTopToBottom
+										add: (SpLabelPresenter new label: 'Hex');
+										add: hexaCode;
+										yourself);
+							   yourself);
 					  yourself);
 			 add: colorBox;
 			 spacing: 1;
-			 yourself)
+			 yourself
 ]
 
 { #category : 'initialization' }
 CPColorCodePresenter >> initializePresenters [
 
-	rCodeInput := self newTextInput.
-	gCodeInput := self newTextInput.
-	bCodeInput := self newTextInput.
-	hexaCode := self newTextInput.
+	rCodeInput := self newNumberInput
+		beInteger;
+		help: 'Red';
+		minimum: 0;
+		maximum: 255;		
+		yourself.
+	gCodeInput := self newNumberInput
+		beInteger;	
+		help: 'Green';
+		minimum: 0;
+		maximum: 255;	
+		yourself.
+	bCodeInput := self newNumberInput
+		beInteger;
+		help: 'Blue';
+		minimum: 0;
+		maximum: 255;	
+		yourself.
+	hexaCode := self newTextInput
+		help: 'Hexadecimal';
+		yourself.	
+	self initializeRoassalPresenters.
+]
+
+{ #category : 'initialization' }
+CPColorCodePresenter >> initializeRoassalPresenters [
+
 	colorBox := self instantiate: SpRoassalPresenter.
 	colorBox canvas originTopLeft.
 	alphaColorBox := RSBox new.
@@ -113,16 +148,15 @@ CPColorCodePresenter >> initializePresenters [
 			Clipboard clipboardText: 'Color fromHexString: ' , '''' , hexaCode placeholder , ''''.
 			self inform: 'Copied color' ]
 		for: self.
-	self initializeLayout
 ]
 
 { #category : 'initialization' }
 CPColorCodePresenter >> setColor: aColor [
 
-	hexaCode placeholder: aColor asHexString.
-	bCodeInput placeholder: (aColor blue * 255) asInteger asString.
-	gCodeInput placeholder: (aColor green * 255) asInteger asString.
-	rCodeInput placeholder: (aColor red * 255) asInteger asString.
+	hexaCode text: aColor asHexString.
+	bCodeInput text: (aColor blue * 255) asInteger asString.
+	gCodeInput text: (aColor green * 255) asInteger asString.
+	rCodeInput text: (aColor red * 255) asInteger asString.
 	colorBox canvas
 		color: aColor;
 		signalUpdate
