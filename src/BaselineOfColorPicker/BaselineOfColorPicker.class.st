@@ -11,6 +11,8 @@ BaselineOfColorPicker >> baseline: spec [
 	spec
 		for: #(common)
 		do: [ 
+			self roassal: spec.
+	
 			spec 
 				package: 'ColorPicker'         with: [ spec requires: #(Roassal) ];
 				package: 'ColorPicker-Tests'	with: [ spec requires: #(ColorPicker) ].
@@ -18,4 +20,15 @@ BaselineOfColorPicker >> baseline: spec [
 				group: 'Core' 						with: #('ColorPicker');
 				group: 'Tests' 						with: #('ColorPicker' 'ColorPicker-Tests');
 				group: 'default' 					with: #('Core' 'Tests') ]
+]
+
+{ #category : 'baselines' }
+BaselineOfColorPicker >> roassal: spec [
+
+	spec 
+		baseline: 'Roassal' 
+ 		with: [ 
+			spec 
+				repository: (self class environment at: #BaselineOfPharo) roassalRepository;
+    			loads: #( 'Core' 'Tests') ]
 ]
