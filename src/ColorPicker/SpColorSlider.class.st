@@ -2,7 +2,7 @@
 An horizontal strip mapping the hue to one dimension.
 "
 Class {
-	#name : 'CPColorSlider',
+	#name : 'SpColorSlider',
 	#superclass : 'SpRoassalPresenter',
 	#instVars : [
 		'hue',
@@ -14,7 +14,7 @@ Class {
 }
 
 { #category : 'initialization' }
-CPColorSlider >> gradientPaintHues [
+SpColorSlider >> gradientPaintHues [
 	"Creates the gradiant paint used as background in the slider. So the user can see color hues."
 
 	| hues maxHueValue |
@@ -30,7 +30,7 @@ CPColorSlider >> gradientPaintHues [
 ]
 
 { #category : 'initialization' }
-CPColorSlider >> hueChanged: evt [
+SpColorSlider >> hueChanged: evt [
 	"When hue change, update circle pointer position. And notify change."
 
 	| c |
@@ -51,7 +51,7 @@ CPColorSlider >> hueChanged: evt [
 ]
 
 { #category : 'hooks' }
-CPColorSlider >> hueFromPosition: aPoint [
+SpColorSlider >> hueFromPosition: aPoint [
 	"Computes color hue from a position within the slider."
 
 	| offset |
@@ -61,7 +61,7 @@ CPColorSlider >> hueFromPosition: aPoint [
 ]
 
 { #category : 'initialization' }
-CPColorSlider >> initializeCanvas [
+SpColorSlider >> initializeCanvas [
 
 	| can slider paint |
 	can := self canvas
@@ -95,39 +95,39 @@ CPColorSlider >> initializeCanvas [
 ]
 
 { #category : 'initialization' }
-CPColorSlider >> initializePresenters [
+SpColorSlider >> initializePresenters [
 
 	self initializeCanvas.
 	
 ]
 
 { #category : 'hooks' }
-CPColorSlider >> positionFromHue: aHue [
+SpColorSlider >> positionFromHue: aHue [
 	"Computes the position of the circle pointer within the slider from a color hue."
 
 	^ (hue * self sliderWidth / 360) floor - (self sliderWidth / 2) @ 0
 ]
 
 { #category : 'initialization' }
-CPColorSlider >> setColor: aColor [
+SpColorSlider >> setColor: aColor [
 
 	self updateCirclePointerWith: aColor hue
 ]
 
 { #category : 'initialization' }
-CPColorSlider >> sliderHeight [
+SpColorSlider >> sliderHeight [
 
 	^ 10
 ]
 
 { #category : 'initialization' }
-CPColorSlider >> sliderWidth [
+SpColorSlider >> sliderWidth [
 
 	^ 240
 ]
 
 { #category : 'initialization' }
-CPColorSlider >> updateCirclePointerWith: h [
+SpColorSlider >> updateCirclePointerWith: h [
 	"Updates color and position of circle pointer with a given color."
 	hue := h.
 	circleHue translateTo: (self positionFromHue: h).

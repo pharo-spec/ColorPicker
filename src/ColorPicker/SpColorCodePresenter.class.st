@@ -2,7 +2,7 @@
 Presents the color as rgb value and hexadecimal. Also represents to color on a small rectangle for a better perception of the choosed color.
 "
 Class {
-	#name : 'CPColorCodePresenter',
+	#name : 'SpColorCodePresenter',
 	#superclass : 'SpPresenter',
 	#instVars : [
 		'rCodeInput',
@@ -17,7 +17,7 @@ Class {
 }
 
 { #category : 'initialization' }
-CPColorCodePresenter >> chessPaintFor: aPoint [
+SpColorCodePresenter >> chessPaintFor: aPoint [
 
 	| canvas lines c h w |
 	canvas := RSCanvas new extent: aPoint.
@@ -47,13 +47,13 @@ CPColorCodePresenter >> chessPaintFor: aPoint [
 ]
 
 { #category : 'initialization' }
-CPColorCodePresenter >> connectPresenters [
+SpColorCodePresenter >> connectPresenters [
 
 	"rCodeInput whenTextChangedDo: [  self updateColorCode ] "
 ]
 
 { #category : 'layout' }
-CPColorCodePresenter >> defaultLayout [
+SpColorCodePresenter >> defaultLayout [
 
 	^ SpBoxLayout newLeftToRight
 			beHomogeneous;
@@ -91,7 +91,7 @@ CPColorCodePresenter >> defaultLayout [
 ]
 
 { #category : 'initialization' }
-CPColorCodePresenter >> initializePresenters [
+SpColorCodePresenter >> initializePresenters [
 
 	rCodeInput := self newNumberInput
 		beInteger;
@@ -118,7 +118,7 @@ CPColorCodePresenter >> initializePresenters [
 ]
 
 { #category : 'initialization' }
-CPColorCodePresenter >> initializeRoassalPresenters [
+SpColorCodePresenter >> initializeRoassalPresenters [
 
 	colorBox := self instantiate: SpRoassalPresenter.
 	colorBox canvas originTopLeft.
@@ -148,7 +148,7 @@ CPColorCodePresenter >> initializeRoassalPresenters [
 ]
 
 { #category : 'initialization' }
-CPColorCodePresenter >> setColor: aColor [
+SpColorCodePresenter >> setColor: aColor [
 
 	hexaCode text: aColor asHexString.
 	bCodeInput text: (aColor blue * 255) asInteger asString.
@@ -160,7 +160,7 @@ CPColorCodePresenter >> setColor: aColor [
 ]
 
 { #category : 'initialization' }
-CPColorCodePresenter >> updateColorCode [
+SpColorCodePresenter >> updateColorCode [
 
 	| r g b range |
 	range := 255.

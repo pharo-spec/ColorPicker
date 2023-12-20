@@ -1,5 +1,5 @@
 Class {
-	#name : 'CPAlphaSlider',
+	#name : 'SpAlphaSlider',
 	#superclass : 'SpRoassalPresenter',
 	#instVars : [
 		'trans'
@@ -9,7 +9,7 @@ Class {
 }
 
 { #category : 'initialization' }
-CPAlphaSlider >> chessPaintFor: aPoint [
+SpAlphaSlider >> chessPaintFor: aPoint [
 
 	| canvas lines c h w |
 	canvas := RSCanvas new extent: aPoint.
@@ -39,7 +39,7 @@ CPAlphaSlider >> chessPaintFor: aPoint [
 ]
 
 { #category : 'initialization' }
-CPAlphaSlider >> initializePresenters [
+SpAlphaSlider >> initializePresenters [
 
 	| canvas chess |
 	canvas := self canvas.
@@ -69,13 +69,13 @@ CPAlphaSlider >> initializePresenters [
 ]
 
 { #category : 'initialization' }
-CPAlphaSlider >> setColor: aColor [
+SpAlphaSlider >> setColor: aColor [
 
 	self updateTransPaintWith: aColor
 ]
 
 { #category : 'initialization' }
-CPAlphaSlider >> updateTransPaintWith: aColor [
+SpAlphaSlider >> updateTransPaintWith: aColor [
 
 	trans paint: ((LinearGradientPaint fromArray: {
 					  (0 -> Color transparent).

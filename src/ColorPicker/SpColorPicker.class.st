@@ -11,7 +11,7 @@ This color picker has:
 This class is responsible to synchronize all these components when when action was done on a specific component. For instance, if the hue was changed using the color slider, it updates the color for other presenters.
 "
 Class {
-	#name : 'CPColorPicker',
+	#name : 'SpColorPicker',
 	#superclass : 'SpPresenter',
 	#instVars : [
 		'alphaSlider',
@@ -31,7 +31,7 @@ Class {
 }
 
 { #category : 'specs' }
-CPColorPicker class >> open [
+SpColorPicker class >> open [
 
 	<script>
 	^ self new
@@ -40,19 +40,25 @@ CPColorPicker class >> open [
 ]
 
 { #category : 'accessing' }
-CPColorPicker >> color [
+SpColorPicker >> color [
 
 	^ color
 ]
 
 { #category : 'accessing' }
-CPColorPicker >> color: anObject [
+SpColorPicker >> color: anObject [
 
 	color := anObject
 ]
 
+{ #category : 'initialization' }
+SpColorPicker >> colorSlider [
+
+	^ colorSlider 
+]
+
 { #category : 'layout' }
-CPColorPicker >> defaultLayout [
+SpColorPicker >> defaultLayout [
 
 	| sp sp2 |
 	sp := self newRoassal.
@@ -73,19 +79,19 @@ CPColorPicker >> defaultLayout [
 ]
 
 { #category : 'accessing' }
-CPColorPicker >> hue [
+SpColorPicker >> hue [
 
 	^ hue
 ]
 
 { #category : 'accessing' }
-CPColorPicker >> hue: anObject [
+SpColorPicker >> hue: anObject [
 
 	hue := anObject
 ]
 
 { #category : 'initialization' }
-CPColorPicker >> initialize [
+SpColorPicker >> initialize [
 
 	super initialize.
 	hue := 0.
@@ -96,13 +102,13 @@ CPColorPicker >> initialize [
 ]
 
 { #category : 'initialization' }
-CPColorPicker >> initializePresenters [
+SpColorPicker >> initializePresenters [
 
-	colorSlider := self instantiate: CPColorSlider.
-	alphaSlider := self instantiate: CPAlphaSlider.
-	colorCodePresenter := self instantiate: CPColorCodePresenter.
-	colorMap := self instantiate: CPColorMap.
-	paletteChooser := self instantiate: CPSmallColorPalette.
+	colorSlider := self instantiate: SpColorSlider.
+	alphaSlider := self instantiate: SpAlphaSlider.
+	colorCodePresenter := self instantiate: SpColorCodePresenter.
+	colorMap := self instantiate: SpColorMap.
+	paletteChooser := self instantiate: SpSmallColorPalette.
 	presenters := {
 		              colorSlider.
 		              colorCodePresenter.
@@ -112,7 +118,7 @@ CPColorPicker >> initializePresenters [
 ]
 
 { #category : 'initialization' }
-CPColorPicker >> initializeWindow: aWindowPresenter [
+SpColorPicker >> initializeWindow: aWindowPresenter [
 
 	aWindowPresenter
 		title: 'Color picker';
@@ -121,7 +127,7 @@ CPColorPicker >> initializeWindow: aWindowPresenter [
 ]
 
 { #category : 'update' }
-CPColorPicker >> setColor: aColor [
+SpColorPicker >> setColor: aColor [
 
 	color := aColor.
 	hue := aColor hue.
@@ -135,7 +141,7 @@ CPColorPicker >> setColor: aColor [
 ]
 
 { #category : 'update' }
-CPColorPicker >> updateHue: aHue [
+SpColorPicker >> updateHue: aHue [
 
 	| c |
 	hue := aHue.
@@ -148,7 +154,7 @@ CPColorPicker >> updateHue: aHue [
 ]
 
 { #category : 'update' }
-CPColorPicker >> updateSaturation: s brightness: v [
+SpColorPicker >> updateSaturation: s brightness: v [
 
 	| c |
 	
@@ -162,7 +168,7 @@ CPColorPicker >> updateSaturation: s brightness: v [
 ]
 
 { #category : 'update' }
-CPColorPicker >> whenColorChangedDo: aBlock [
+SpColorPicker >> whenColorChangedDo: aBlock [
 
 	actionBlock := aBlock
 ]

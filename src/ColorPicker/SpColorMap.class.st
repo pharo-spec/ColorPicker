@@ -2,7 +2,7 @@
 A two-dimensional rectangle mapping saturation and ligntness to the dimensions.
 "
 Class {
-	#name : 'CPColorMap',
+	#name : 'SpColorMap',
 	#superclass : 'SpRoassalPresenter',
 	#instVars : [
 		'circleColor',
@@ -15,7 +15,7 @@ Class {
 }
 
 { #category : 'initialization' }
-CPColorMap >> initialize [
+SpColorMap >> initialize [
 
 	super initialize.
 	saturation := 1.
@@ -23,7 +23,7 @@ CPColorMap >> initialize [
 ]
 
 { #category : 'initialization' }
-CPColorMap >> initializePresenters [
+SpColorMap >> initializePresenters [
 
 	| can blackGradient paint |
 	can := self canvas.
@@ -61,7 +61,7 @@ CPColorMap >> initializePresenters [
 ]
 
 { #category : 'initialization' }
-CPColorMap >> positionFromColor: aColor [
+SpColorMap >> positionFromColor: aColor [
 
 	| x y |
 	x := (self width * aColor saturation) floor.
@@ -71,7 +71,7 @@ CPColorMap >> positionFromColor: aColor [
 ]
 
 { #category : 'initialization' }
-CPColorMap >> setColor: aColor [
+SpColorMap >> setColor: aColor [
 	
 	saturation := aColor saturation.
 	brightness := aColor brightness.
@@ -81,7 +81,7 @@ CPColorMap >> setColor: aColor [
 ]
 
 { #category : 'initialization' }
-CPColorMap >> setHue: hue [
+SpColorMap >> setHue: hue [
 
 	map paint: ((LinearGradientPaint fromArray: { 
 						         (0 -> (Color h: hue s: 1 v: 1)).
@@ -94,7 +94,7 @@ CPColorMap >> setHue: hue [
 ]
 
 { #category : 'initialization' }
-CPColorMap >> svChanged: evt [
+SpColorMap >> svChanged: evt [
 
 	(evt position x between: -120 and: 120) ifTrue: [
 		circleColor translateTo: evt position x @ circleColor position y ].
@@ -111,7 +111,7 @@ CPColorMap >> svChanged: evt [
 ]
 
 { #category : 'initialization' }
-CPColorMap >> width [
+SpColorMap >> width [
 	
 	^ 240
 ]

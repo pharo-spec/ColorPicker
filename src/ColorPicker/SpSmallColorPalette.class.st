@@ -3,7 +3,7 @@ Present color palettes of Roassal, see Roassal color palettes for more informati
 This presenter let user navigate color palettes and choose specific colors.
 "
 Class {
-	#name : 'CPSmallColorPalette',
+	#name : 'SpSmallColorPalette',
 	#superclass : 'SpPresenter',
 	#instVars : [
 		'paletteDropList',
@@ -16,13 +16,13 @@ Class {
 }
 
 { #category : 'as yet unclassified' }
-CPSmallColorPalette class >> allColorPalettes [
+SpSmallColorPalette class >> allColorPalettes [
 	^RSColorPalette allSubclasses
 		sort: [ :a :b | a name < b name ]
 ]
 
 { #category : 'initialization' }
-CPSmallColorPalette >> boxFromColor: aColor [
+SpSmallColorPalette >> boxFromColor: aColor [
 
 	^ RSBox new
 		  extent: 20 @ 20;
@@ -49,13 +49,13 @@ CPSmallColorPalette >> boxFromColor: aColor [
 ]
 
 { #category : 'initialization' }
-CPSmallColorPalette >> boxesFromColorArray: array [
+SpSmallColorPalette >> boxesFromColorArray: array [
 
 	^ array collect: [ :color | self boxFromColor: color ] as: RSGroup
 ]
 
 { #category : 'initialization' }
-CPSmallColorPalette >> initializeLayout [
+SpSmallColorPalette >> initializeLayout [
 
 	self layout: (SpBoxLayout newTopToBottom
 			 spacing: 2;
@@ -76,7 +76,7 @@ CPSmallColorPalette >> initializeLayout [
 ]
 
 { #category : 'initialization' }
-CPSmallColorPalette >> initializePresenters [
+SpSmallColorPalette >> initializePresenters [
 
 	colorsGrid := self instantiate: SpRoassalPresenter.
 	colorsGrid canvas color: Color transparent.
@@ -99,7 +99,7 @@ CPSmallColorPalette >> initializePresenters [
 ]
 
 { #category : 'initialization' }
-CPSmallColorPalette >> setColorsGrid: method [
+SpSmallColorPalette >> setColorsGrid: method [
 
 	| scale colorBoxes shapes can |
 	method ifNil: [ ^ self ].
@@ -120,7 +120,7 @@ CPSmallColorPalette >> setColorsGrid: method [
 ]
 
 { #category : 'initialization' }
-CPSmallColorPalette >> setPalette: selectedItem [
+SpSmallColorPalette >> setPalette: selectedItem [
 
 	currentPalette := selectedItem.
 	hueSetDropList
