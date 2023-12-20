@@ -104,7 +104,9 @@ CPColorMap >> svChanged: evt [
 	brightness := 130 - (circleColor position y + 65) / 130.
 	circleColor color:
 		(Color h: self owner hue s: saturation v: brightness).
+	"Trigger the update of the owner chain"
 	self owner updateSaturation: saturation brightness: brightness.
+	"This triggers the update of the color map canvas"
 	self canvas signalUpdate
 ]
 

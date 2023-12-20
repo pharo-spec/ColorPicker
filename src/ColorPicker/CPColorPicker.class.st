@@ -31,30 +31,7 @@ Class {
 }
 
 { #category : 'specs' }
-CPColorPicker class >> defaultLayout [
-
-	^ SpBoxLayout newTopToBottom
-		  add: #colorPicker expand: false;
-		  add: #colorSlider expand: false;
-		  add: (SpBoxLayout newLeftToRight
-				   add: #rCode;
-				   add: #gCode;
-				   add: #bCode;
-				   yourself) expand: false;
-		  yourself
-]
-
-{ #category : 'specs' }
-CPColorPicker class >> openExample [
-
-	<script>
-	^ self new
-		  open;
-		  yourself
-]
-
-{ #category : 'specs' }
-CPColorPicker class >> openExemple [
+CPColorPicker class >> open [
 
 	<script>
 	^ self new
@@ -72,6 +49,27 @@ CPColorPicker >> color [
 CPColorPicker >> color: anObject [
 
 	color := anObject
+]
+
+{ #category : 'layout' }
+CPColorPicker >> defaultLayout [
+
+	| sp sp2 |
+	sp := self newRoassal.
+	sp2 := self newPresenter.
+	sp2 layout: SpBoxLayout newTopToBottom.
+	sp canvas color: Color black translucent.
+	
+	^ SpBoxLayout newTopToBottom
+		add: colorMap height: 150;
+		add: colorSlider height: 25;
+		add: alphaSlider height: 25;
+		add: colorCodePresenter expand: false;
+		add: sp2 height: 10;
+		add: sp height: 1;
+		add: paletteChooser;
+		spacing: 1;
+		yourself.
 ]
 
 { #category : 'accessing' }
@@ -98,26 +96,6 @@ CPColorPicker >> initialize [
 ]
 
 { #category : 'initialization' }
-CPColorPicker >> initializeLayout [
-
-	| sp sp2 |
-	sp := self newRoassal.
-	sp2 := self newPresenter.
-	sp2 layout: SpBoxLayout newTopToBottom.
-	sp canvas color: Color black translucent.
-	self layout: (SpBoxLayout newTopToBottom
-			 add: colorMap height: 150;
-			 add: colorSlider height: 25;
-			 add: alphaSlider height: 25;
-			 add: colorCodePresenter expand: false;
-			 add: sp2 height: 10;
-			 add: sp height: 1;
-			 add: paletteChooser;
-			 spacing: 1;
-			 yourself)
-]
-
-{ #category : 'initialization' }
 CPColorPicker >> initializePresenters [
 
 	colorSlider := self instantiate: CPColorSlider.
@@ -131,7 +109,6 @@ CPColorPicker >> initializePresenters [
 		              colorMap.
 		              paletteChooser.
 		              alphaSlider }.
-	self initializeLayout
 ]
 
 { #category : 'initialization' }
@@ -139,7 +116,7 @@ CPColorPicker >> initializeWindow: aWindowPresenter [
 
 	aWindowPresenter
 		title: 'Color picker';
-		initialExtent: 270@400;
+		initialExtent: 300 @ 450;
 		windowIcon: self windowIcon
 ]
 
@@ -174,6 +151,7 @@ CPColorPicker >> updateHue: aHue [
 CPColorPicker >> updateSaturation: s brightness: v [
 
 	| c |
+	
 	saturation := s.
 	brightness := v.
 	c := Color h: hue s: saturation v: brightness.
