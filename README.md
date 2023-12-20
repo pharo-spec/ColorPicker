@@ -4,7 +4,7 @@ Provides a powerful and intuitive color picker tool designed for Pharo. It seaml
 Roassal graphics library to provide a comprehensive solution for color selection in your Pharo applications. 
 
 <p align="center">
-<img src="https://github.com/pharo-spec/ColorPicker/assets/4825959/d9f3ea7c-e184-429e-a8ab-603d7a63dfd3">
+<img src="https://github.com/pharo-spec/ColorPicker/assets/4825959/3c3ef4cd-b29f-4826-9029-5081f5b4424d">
 </p>
 
 It includes:
@@ -19,7 +19,7 @@ It includes:
 Integrating ColorPicker into your Pharo projects is straightforward. The library comes with class documentation and examples to ensuring a smooth integration.
 
 ```smalltalk
-CPColorPicker open.
+SpColorPicker open.
 ```
 
 # Install
