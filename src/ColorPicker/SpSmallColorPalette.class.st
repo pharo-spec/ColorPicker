@@ -15,7 +15,7 @@ Class {
 	#package : 'ColorPicker'
 }
 
-{ #category : 'as yet unclassified' }
+{ #category : 'utilities' }
 SpSmallColorPalette class >> allColorPalettes [
 	^RSColorPalette allSubclasses
 		sort: [ :a :b | a name < b name ]

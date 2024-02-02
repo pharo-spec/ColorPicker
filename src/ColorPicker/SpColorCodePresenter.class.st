@@ -158,22 +158,3 @@ SpColorCodePresenter >> setColor: aColor [
 		color: aColor;
 		signalUpdate
 ]
-
-{ #category : 'initialization' }
-SpColorCodePresenter >> updateColorCode [
-
-	| r g b range |
-	range := 255.
-	r := rCodeInput text asInteger.
-	g := gCodeInput text asInteger.
-	b := bCodeInput text asInteger.
-	(r isNil or: [ g isNil or: [ b isNil ]]) ifTrue: [ ^self ].
-	((r between: 0 and: range) and: [ 
-		 (g between: 0 and: range) and: [ b between: 0 and: range ] ]) 
-		ifTrue: [ 
-			self owner updatedColorCode: (Color
-					 r: r
-					 g: g
-					 b: b
-					 range: range) ]
-]
