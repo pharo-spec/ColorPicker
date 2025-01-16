@@ -1,33 +1,27 @@
 "
-Use SpColorPickerWindowPresenter instead
+Provides a color picker with a toolbar to confirm or cancel the selected color.
+
 "
 Class {
-	#name : 'SpColorPickerWindow',
-	#superclass : 'SpColorPickerWindowPresenter',
+	#name : 'SpColorPickerWindowPresenter',
+	#superclass : 'SpPresenter',
+	#instVars : [
+		'colorPickerPresenter',
+		'toolbar'
+	],
 	#category : 'ColorPicker',
 	#package : 'ColorPicker'
 }
 
-
-{ #category : 'testing' }
-SpColorPickerWindow class >> isDeprecated [
-		" Uses SpColorPickerWindowPresenter instead of SpColorPickerWindow"
-		^ true
-    
 { #category : 'instance creation' }
-SpColorPickerWindow class >> defaultPreferredExtent [
-	^ (350 @ 550)
-]
-
-{ #category : 'instance creation' }
-SpColorPickerWindow class >> open [
+SpColorPickerWindowPresenter class >> open [
 	<script>
 
 	^ self new open
 ]
 
 { #category : 'layout' }
-SpColorPickerWindow >> defaultLayout [ 
+SpColorPickerWindowPresenter >> defaultLayout [ 
 
 	^ SpBoxLayout newTopToBottom 
 		add: colorPickerPresenter;
@@ -36,7 +30,13 @@ SpColorPickerWindow >> defaultLayout [
 ]
 
 { #category : 'initialization' }
-SpColorPickerWindow >> initializePresenters [
+SpColorPickerWindowPresenter >> initialExtentForWindow [
+
+	^ (350 @ 550) scaledByDisplayScaleFactor
+]
+
+{ #category : 'initialization' }
+SpColorPickerWindowPresenter >> initializePresenters [
 
 	colorPickerPresenter := self newColorPicker.
 	toolbar := self newToolbar.
@@ -44,21 +44,22 @@ SpColorPickerWindow >> initializePresenters [
 ]
 
 { #category : 'initialization' }
-SpColorPickerWindow >> initializeWindow: aWindowPresenter [
+SpColorPickerWindowPresenter >> initializeWindow: aWindowPresenter [
 
 	super initializeWindow: aWindowPresenter.
 	aWindowPresenter 
+		initialExtent: self initialExtentForWindow;
 		whenClosedDo: [ self owner color: colorPickerPresenter color ]
 ]
 
 { #category : 'initialization' }
-SpColorPickerWindow >> title [
+SpColorPickerWindowPresenter >> title [
 
 	^ 'Color Picker'
 ]
 
 { #category : 'initialization' }
-SpColorPickerWindow >> toolbarButtons [
+SpColorPickerWindowPresenter >> toolbarButtons [
 	| buttons |
 
 	buttons := OrderedCollection new.
@@ -80,7 +81,7 @@ SpColorPickerWindow >> toolbarButtons [
 ]
 
 { #category : 'initialization' }
-SpColorPickerWindow >> windowIcon [
+SpColorPickerWindowPresenter >> windowIcon [
 
 	^ self iconNamed: #smallPaint
 ]
