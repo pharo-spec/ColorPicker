@@ -14,6 +14,11 @@ Class {
 }
 
 { #category : 'instance creation' }
+SpColorPickerWindow class >> defaultPreferredExtent [
+	^ (350 @ 550)
+]
+
+{ #category : 'instance creation' }
 SpColorPickerWindow class >> open [
 	<script>
 
@@ -30,12 +35,6 @@ SpColorPickerWindow >> defaultLayout [
 ]
 
 { #category : 'initialization' }
-SpColorPickerWindow >> initialExtentForWindow [
-
-	^ (350 @ 550) scaledByDisplayScaleFactor
-]
-
-{ #category : 'initialization' }
 SpColorPickerWindow >> initializePresenters [
 
 	colorPickerPresenter := self newColorPicker.
@@ -48,7 +47,6 @@ SpColorPickerWindow >> initializeWindow: aWindowPresenter [
 
 	super initializeWindow: aWindowPresenter.
 	aWindowPresenter 
-		initialExtent: self initialExtentForWindow;
 		whenClosedDo: [ self owner color: colorPickerPresenter color ]
 ]
 
