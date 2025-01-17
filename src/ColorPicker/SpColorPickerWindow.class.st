@@ -13,7 +13,8 @@ Class {
 SpColorPickerWindow class >> isDeprecated [
 		" Uses SpColorPickerWindowPresenter instead of SpColorPickerWindow"
 		^ true
-    
+]
+
 { #category : 'instance creation' }
 SpColorPickerWindow class >> defaultPreferredExtent [
 	^ (350 @ 550)
