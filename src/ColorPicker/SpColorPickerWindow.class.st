@@ -21,6 +21,17 @@ SpColorPickerWindow class >> defaultPreferredExtent [
 ]
 
 { #category : 'instance creation' }
+SpColorPickerWindow class >> defaultPreferredExtent [
+	^ (350 @ 550)
+]
+
+{ #category : 'testing' }
+SpColorPickerWindow class >> isDeprecated [
+		" Uses SpColorPickerWindowPresenter instead of SpColorPickerWindow"
+		^ true
+]
+
+{ #category : 'instance creation' }
 SpColorPickerWindow class >> open [
 	<script>
 
