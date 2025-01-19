@@ -14,12 +14,14 @@ Class {
 }
 
 { #category : 'instance creation' }
+
 SpColorPickerWindowPresenter class >> defaultPreferredExtent [ 
 
 	^ (350 @ 550)
 ]
 
 { #category : 'instance creation' }
+
 SpColorPickerWindowPresenter class >> open [
 	<script>
 
@@ -36,6 +38,7 @@ SpColorPickerWindowPresenter >> defaultLayout [
 ]
 
 { #category : 'initialization' }
+
 SpColorPickerWindowPresenter >> initializePresenters [
 
 	colorPickerPresenter := self newColorPicker.
